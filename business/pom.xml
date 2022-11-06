@@ -27,6 +27,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>mx.luisferrr</groupId>
+            <artifactId>utils</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
 </project>
