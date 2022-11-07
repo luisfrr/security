@@ -10,6 +10,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
+
+import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Table(name = "application", schema = "sec")
@@ -33,6 +36,9 @@ public class Application {
 
     @Column(name = "version")
     private String version;
+
+    @OneToMany(cascade = ALL, mappedBy = "application", fetch = FetchType.LAZY)
+    private Set<ApplicationRole> applicationRoles;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "audit_flag")

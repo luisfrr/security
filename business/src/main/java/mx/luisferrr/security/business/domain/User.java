@@ -8,10 +8,13 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "role", schema = "sec")
@@ -21,7 +24,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @EntityListeners(AuditingEntityListener.class)
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +51,6 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "main_role_id")
     private Role mainRole;
-
 
     @Column(name = "email_confirmed")
     private Integer emailConfirmed;
@@ -83,4 +85,34 @@ public class User {
     @LastModifiedBy
     @Column(name = "last_modified_by")
     private String lastModifiedBy;
+
+    @Transient
+    private List<GrantedAuthority> grantedAuthorityList;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return grantedAuthorityList;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        Date currentDate = new Date();
+        return currentDate.compareTo(accountExpirationDate) <= 0;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return status != UserStatus.BLOCKED;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        Date currentDate = new Date();
+        return currentDate.compareTo(credentialsExpirationDate) <= 0;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return status == UserStatus.ACTIVE;
+    }
 }
