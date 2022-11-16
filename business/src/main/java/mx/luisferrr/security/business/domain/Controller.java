@@ -11,6 +11,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
+
+import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Table(name = "controller", schema = "sec")
@@ -57,6 +60,9 @@ public class Controller {
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "controller_type")
     private ControllerType controllerType;
+
+    @OneToMany(cascade=ALL, mappedBy="controller", fetch = FetchType.LAZY)
+    private Set<Permission> permissions;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "audit_flag")

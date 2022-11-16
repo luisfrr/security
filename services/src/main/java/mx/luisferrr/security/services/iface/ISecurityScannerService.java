@@ -7,5 +7,5 @@ import mx.luisferrr.security.business.domain.User;
 import java.util.List;
 
 public interface ISecurityScannerService {
-    List<Controller> getAllControladoresAndPermisos(String scanPackage, Application application, User user);
+    List<Controller> getAllControllersAndPermissions(String scanPackage, Application application, User user);
 }

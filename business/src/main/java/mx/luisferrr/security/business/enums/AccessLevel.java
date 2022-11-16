@@ -1,6 +1,6 @@
 package mx.luisferrr.security.business.enums;
 
-public enum AccessStatus {
+public enum AccessLevel {
     NONE,
     ENABLED,
     BLOKED

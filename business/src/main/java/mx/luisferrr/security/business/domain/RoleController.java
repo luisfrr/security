@@ -1,7 +1,7 @@
 package mx.luisferrr.security.business.domain;
 
 import lombok.*;
-import mx.luisferrr.security.business.enums.AccessStatus;
+import mx.luisferrr.security.business.enums.AccessLevel;
 import mx.luisferrr.security.business.enums.AuditFlag;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -39,7 +39,7 @@ public class RoleController {
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "access_status", nullable = false)
-    private AccessStatus accessStatus;
+    private AccessLevel accessLevel;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "audit_flag")
